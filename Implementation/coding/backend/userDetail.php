@@ -1,9 +1,10 @@
 <?php
 require_once ('header.php'); 
-require_once('../class/user.class.php');
-$user = new user();
+require_once('../includes/crud.php');
+$crud = new crud();
+$query = "SELECT * FROM user_detail";
+$result = $crud->getData($query);
 
-$res = $user->retrieve();
 ?>
 <section class="image">
       <div class="container">
@@ -17,7 +18,6 @@ $res = $user->retrieve();
           <table class="table table-responsive table-striped table-bordered">
           	<tbody>
           		<tr>
-               <th>User ID</th>
                <th>First Name</th>
                <th>Last Name</th>
                <th>Address</th>
@@ -27,24 +27,23 @@ $res = $user->retrieve();
                <th>Password</th>
                <th>Button</th>
           </tr>
-           <?php
-			foreach ($res as $k => $fn) { ?>
-                        <tr>
-                 <td> <?php echo $fn->user_id; ?></td>
-                 <td> <?php echo $fn->firstname; ?></td>
-                 <td> <?php echo $fn->lastname; ?></td>
-                 <td> <?php echo $fn->address; ?></td>
-                <td> <?php echo $fn->phonenumber; ?></td>
-                <td> <?php echo $fn->email; ?></td>
-                <td> <?php echo $fn->username; ?></td>
-               <td> <?php echo $fn->password; ?></td>
-           <td>
-           <a href="deleteuser.php user_id=<?php echo $r->user_id; ?>" class="btn btn-danger" name="userdeletebutton" onclick = "return confirm ('Are you sure to delete?')"> <i class="fa fa-trash"> Delete </a>
-            </td>
-                        </tr>
-						<?php
-							}
-						?>
+ 
+    <?php 
+
+    foreach ($result as $key => $res) {
+    //while($res = mysqli_fetch_array($result)) {         
+        echo "<tr>";
+          echo "<td>".$res['firstname']."</td>";
+            echo "<td>".$res['lastname']."</td>";
+              echo "<td>".$res['address']."</td>";
+                echo "<td>".$res['phonenumber']."</td>";
+                echo "<td>".$res['email']."</td>";
+                  echo "<td>".$res['username']."</td>";
+                  echo "<td>".$res['password']."</td>";
+          
+        echo "<td><a href=\"../includes/deleteuser.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\" class=\"btn btn-sm btn-danger\" >Delete</a></td>";        
+    }
+    ?>
           	</tbody>
           
           </table>

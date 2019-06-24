@@ -21,7 +21,7 @@ $res = $feedback->retrieve();
       <?php
       foreach ($res as $k => $fn) { ?>
                         <tr>
-                 <td> <?php echo $fn->feedback_id; ?></td>
+                 <td> <?php echo $fn->id; ?></td>
                  <td> <?php echo $fn->name; ?></td>
                  <td> <?php echo $fn->description; ?></td>
                 </tr>

@@ -35,6 +35,35 @@ Currently, Drama Club works with approximately 500 individual students between t
   </div>
 </section>
 
+<section class="dance">
+  <div class="container-fluid">
+    <h2>Our Flight</h2>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="box-frame">
+          <img src="images/dance.jpg" class="img-fluid" />
+          <b><h6 class="lead">Dance</h6></b>
+          <p>Dance is a performing art form consisting of purposefully selected sequences of human movement. This movement has aesthetic and symbolic value, and is acknowledged as dance by performers and observers within a particular culture. Kathmandu</p>
+        </div>
+      </div>
+       <div class="col-lg-4">
+        <div class="box-frame">
+          <img src="images/music.jpg" class="img-fluid" />
+         <b> <h6 class="lead">Music</h6></b>
+          <p>Music is an art form and cultural activity whose medium is sound organized in time. In general definitions of music will include common elements such as pitch, rhythm, dynamics, and the sonic qualities of timbre and texture. Different styles or types of </p>
+        </div>
+      </div>
+         <div class="col-lg-4">
+        <div class="box-frame">
+          <img src="images/drama.jpg" class="img-fluid" />
+          <b><h6 class="lead">Drama</h6></b>
+          <p>Drama is the specific mode of fiction represented in performance: a play, opera, mime, ballet, etc, performed in a theatre, or on radio or television.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <?php
 require_once('class/subscribe.class.php');
 $subscribe = new subscribe;

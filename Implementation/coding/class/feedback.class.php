@@ -4,7 +4,7 @@ require_once('common.class.php');
 
 class feedback extends Common
 {
-	public $feedback_id,$name,$description;
+	public $id,$name,$description;
 	
 
         public function save()

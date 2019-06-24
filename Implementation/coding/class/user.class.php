@@ -1,64 +1,94 @@
-<?php
+<?php 
+	include "db_config.php";
+	class User{
+		protected $db;
+		public function __construct(){
+			$this->db = new DB_con();
+			$this->db = $this->db->ret_obj();
+		}
+		
+		/*** for registration process ***/
+		
+		public function reg_user($firstname, $lastname, $address, $phonenumber, $email, $username, $password){
+			//echo "k";
+			
+			$password = md5($password);
+		
 
-require_once('common.class.php');
 
-class User extends Common
-{
-	public $user_id,$firstname,$lastname,$address,$phonenumber,$email,$username,$password;
+			//checking if the username or email is available in db
+			$query = "SELECT * FROM user_detail WHERE username='$username' OR email='$email'";
+			
+			$result = $this->db->query($query) or die($this->db->error);
+			
+			$count_row = $result->num_rows;
+			
+			//if the username is not in db then insert to the table
+			
+			if($count_row == 0){
+				$query = "INSERT INTO user_detail SET firstname='$firstname', lastname='$lastname', address='$address', phonenumber='$phonenumber', email='$email', username='$username', password='$password'";
+				
+				$result = $this->db->query($query) or die($this->db->error);
+				
+				return true;
+			}
+			else{return false;}
+			
+			
+			}
+			
+			
+	/*** for login process ***/
+		public function check_login($emailusername, $password){
+        $password = md5($password);
+		
+		$query = "SELECT id from user_detail WHERE email='$emailusername' or username='$emailusername' and password='$password'";
+		
+		$result = $this->db->query($query) or die($this->db->error);
+
+		
+		$user_data = $result->fetch_array(MYSQLI_ASSOC);
+		$count_row = $result->num_rows;
+		
+		if ($count_row == 1) {
+	            $_SESSION['login'] = true; // this login var will use for the session thing
+	            $_SESSION['id'] = $user_data['id'];
+	            return true;
+	        }
+			
+		else{return false;}
+		
+
+	}
 	
+	
+	public function get_fullname($id){
+		$query = "SELECT firstname FROM user_detail WHERE id = $id";
+		
+		$result = $this->db->query($query) or die($this->db->error);
+		
+		$user_data = $result->fetch_array(MYSQLI_ASSOC);
+		echo $user_data['firstname'];
+		
+	}
+	
+	/*** starting the session ***/
+	public function get_session(){
+	    return $_SESSION['login'];
+	    }
 
-
-        public function save()
-        {
-                 $this->firstname = $_POST['firstname'];
-                  $this->lastname = $_POST['lastname'];
-                   $this->address = $_POST['address'];
-                   $this->phonenumber = $_POST['phonenumber'];
-                   $this->email = $_POST['email'];
-                   $this->username = $_POST['username'];
-                    $this->password = $_POST['password'];
-
-                $sql = "insert into user_detail (firstname,lastname,address,phonenumber,email,username,password) values ('$this->firstname','$this->lastname','$this->address','$this->phonenumber','$this->email','$this->username','$this->password')"; 
-                return $this->insert($sql);
-        }
-
-
-        public function retrieve()
-        {
-                $sql = "select * from user_detail";
-                return $this->select($sql);
-        }
-       public function destroy()
-{
-    $sql = "delete from news where user_id = $this->user_id";
-        return $this->delete($sql);
+	public function user_logout() {
+	    $_SESSION['login'] = FALSE;
+		unset($_SESSION);
+	    session_destroy();
+	    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
-
-
-        public function edit()
-        {
-         $sql = "update user_detail set firstname = '$this->firstname', lastname = '$this->lastname',address = '$this->address',phonenumber = '$this->phonenumber','$this->email',username = '$this->username',password = '$this->password' where user_id = '$this->user_id' ";
-        return $this->update($sql);       
-        }
-
-        public function getuserByID()
-{
-    $sql= "select * from user_detail where user_id = '$this->user_id'";
-        return $this->select($sql);
-
-}
-
-
-       public function check_login()
-       {
-        $this->username = $_POST['username'];
-        $this->password = $_POST['password'];
-        $sql = "select * from user_detail where username='$this->username' and password='$this->password";
-        $data=mysqli_fetch_array($sql);
-      $_SESSION['user_id']=$data['user_id'];
-      $_SESSION['username']=$data['username'];
-        return $this->select($sql);
-       }
-   }
-
-?>

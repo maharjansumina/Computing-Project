@@ -24,7 +24,7 @@ $res = $booking->retrieve();
               <?php
                 foreach ($res as $k => $fn) { ?>
                         <tr>
-                 <td> <?php echo $fn->booking_id; ?></td>
+                 <td> <?php echo $fn->id; ?></td>
                  <td> <?php echo $fn->user_name; ?></td>
                  <td> <?php echo $fn->leaving_from; ?></td>
                  <td> <?php echo $fn->going_to; ?></td>

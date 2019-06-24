@@ -4,7 +4,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="button">
-              <a href="bookingflight.php">Book a Flight</a>
+              <a href="bookinglist.php">Book a Flight</a>
             </div>
           </div>
           <div class="col-md-6">

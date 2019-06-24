@@ -3,18 +3,17 @@ require_once('header.php');
 require_once('class/user.class.php');
 $user = new User;
 
-if(isset($_POST['submit']))
-{
-  $register = $user->save();
-  if(is_integer($register))
-  {
-    $msg = 'User Register';
-  }
-  else
-  {
-    $msg = 'User Not Register';
-  }
-}
+if (isset($_POST['submit'])){
+        extract($_POST);
+        $register = $user->reg_user($firstname, $lastname, $address, $phonenumber, $email, $username, $password);
+        if ($register) {
+            // Registration Success
+            echo "<div style='text-align:center'>Registration successful <a href='login.php'>Click here</a> to login</div>";
+        } else {
+            // Registration Failed
+            echo "<div style='text-align:center'>Registration failed. Email or Username already exits please try again.</div>";
+        }
+    }
 ?>
 
   <div class="wrapper">

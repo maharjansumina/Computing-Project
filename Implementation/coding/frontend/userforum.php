@@ -36,5 +36,4 @@ if(isset($_POST['ask']))
 		</div>
 	</div>
 </section>
-
 <?php include 'footer.php'; ?>

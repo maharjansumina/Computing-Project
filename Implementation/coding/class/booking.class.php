@@ -4,7 +4,7 @@ require_once('common.class.php');
 
 class booking extends Common
 {
-	public $booking_id,$user_name,$leaving_from,$going_to,$date;
+	public $id,$user_name,$leaving_from,$going_to,$date;
 	
 
         public function save()

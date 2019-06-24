@@ -4,7 +4,7 @@ require_once('common.class.php');
 
 class userforum extends Common
 {
-	public $q_id,$question,$q_by;
+	public $id,$question,$q_by;
 	
 
         public function save()

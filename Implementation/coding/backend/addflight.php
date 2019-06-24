@@ -38,9 +38,12 @@ if(isset($_POST['addflightsubmit']))
 		  </div>
 
 <?php
-$flight = new flight();
+include_once("../includes/crud.php");
+ 
+$crud = new crud();
 
-$res = $flight->retrieve();
+$query = "SELECT * FROM addflight";
+$result = $crud->getData($query);
 ?>
       <div class="col-md-8">
         <div class="well">
@@ -52,23 +55,21 @@ $res = $flight->retrieve();
             <tbody>
               <tr>
                 <th>Leaving From</th>
-                <th>GOing To</th>
-                <th>Button</th>
+                <th>Going To</th>
                 <th>Button</th>
               </tr>
            <?php
-      foreach ($res as $k => $fn) { ?>
-                        <tr>
-                 <td> <?php echo $fn->leaving_from; ?></td>
-                 <td> <?php echo $fn->going_to; ?></td>
-                 <td>
-                    <a class="btn btn-sm btn-info"  name="edit" href="updateflight.php?id='<?php echo $data['flight_id'];?>'">Edit</button></a> </td>
-                  <td>
-                    <a class="btn btn-sm btn-danger"  name="delete" class="delete" onclick="deleteme(<?php echo $data['event_id']; ?>)">Delete</a></td>
-                </tr>
-                <?php
-                                          }
-                                    ?>
+      foreach ($result as $key => $res) {
+                   
+        echo "<tr>";
+
+        echo "<td>".$res['leaving_from']."</td>";
+          echo "<td>".$res['going_to']."</td>";
+
+          echo "<td><a href=\"updateflight.php?id=$res[id]\"class=\"btn btn-sm btn-info\">Edit Flight</a> | <a href=\"deleteflight.php?id=$res[id]\" onClick=\"return confirm('Are you sure you want to delete?')\" class= \"btn btn-sm btn-danger\" >Delete Flight</a></td>";
+              
+              }
+              ?>
             </tbody>
           
           </table>

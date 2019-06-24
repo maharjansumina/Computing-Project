@@ -48,6 +48,12 @@ if(isset($_POST['answer']))
 $userforum = new userforum();
 
 $res = $userforum->retrieve();
+include_once("../includes/crud.php");
+ 
+$crud = new crud();
+
+$query = "SELECT * FROM answer_table";
+$result = $crud->getData($query);
 ?>
       <div class="col-md-8">
         <div class="well">
@@ -58,14 +64,12 @@ $res = $userforum->retrieve();
           <table class="table table-responsive table-striped table-bordered">
             <tbody>
               <tr>
-              	<th>Question ID</th>
                 <th>Question</th>
                 <th>Answer</th>
               </tr>
            <?php
       foreach ($res as $k => $fn) { ?>
                         <tr>
-                 <td> <?php echo $fn->q_id; ?></td>
                  <td> <?php echo $fn->question; ?></td>
                  <td> <?php echo $fn->answer; ?></td>
                 <?php

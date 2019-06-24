@@ -4,7 +4,7 @@ require_once('common.class.php');
 
 class flight extends Common
 {
-	public $flight_id,$leaving_from,$going_to;
+	public $id,$leaving_from,$going_to;
 	
 
         public function save()
